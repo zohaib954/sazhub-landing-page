@@ -217,9 +217,9 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-gray-900 mb-1">Visit Us</h3>
                         <p className="text-gray-700">
-                          123 Healthcare Avenue<br />
-                          Medical District<br />
-                          New York, NY 10001
+                         Hyderabad<br />
+                          Hyderabad<br />
+                          Hyderabad
                         </p>
                       </div>
                     </div>
@@ -231,8 +231,8 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-gray-900 mb-1">Call Us</h3>
                         <p className="text-gray-700">
-                          Main: <a href="tel:+1234567890" className="hover:text-sazvida-600 transition-colors">+1 (234) 567-890</a><br />
-                          Support: <a href="tel:+1234567899" className="hover:text-sazvida-600 transition-colors">+1 (234) 567-899</a>
+                          Main: <a href="tel:+919396668883" className="hover:text-sazvida-600 transition-colors">+91 9396668883</a><br />
+                          Support: <a href="tel:+919396668883" className="hover:text-sazvida-600 transition-colors">+91 9396668883</a>
                         </p>
                       </div>
                     </div>
@@ -282,7 +282,7 @@ const Contact = () => {
               </AnimatedElement>
             </div>
             
-            <AnimatedElement className="mt-16">
+            {/* <AnimatedElement className="mt-16">
               <div className="glass-card p-6 rounded-2xl">
                 <h2 className="text-2xl font-bold mb-6 text-center">Our Location</h2>
                 <div className="rounded-xl overflow-hidden h-96 shadow-lg">
@@ -297,7 +297,7 @@ const Contact = () => {
                   />
                 </div>
               </div>
-            </AnimatedElement>
+            </AnimatedElement> */}
           </div>
         </section>
       </main>
