@@ -23,7 +23,7 @@ export function AppsGrid() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {apps.map((app, i) => {
             const Icon = app.icon;
             const featured = app.slug === "licensify";

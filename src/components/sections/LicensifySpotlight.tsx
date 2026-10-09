@@ -8,7 +8,7 @@ export function LicensifySpotlight() {
   return (
     <section className="relative overflow-hidden bg-hero py-24 text-white sm:py-32" aria-labelledby="licensify-spot-title">
       <div className="bg-grid pointer-events-none absolute inset-0" />
-      <div className="container relative grid items-center gap-14 lg:grid-cols-[1fr_1.25fr]">
+      <div className="container relative grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
         <Reveal>
           <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-app-licensify text-white ring-1 ring-white/20">

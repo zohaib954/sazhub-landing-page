@@ -23,7 +23,7 @@ export default function DemoPage() {
     <section className="relative overflow-hidden bg-[#f6f7fb]">
       <div className="absolute inset-x-0 top-0 h-[600px] bg-hero lg:h-[420px]" />
       <div className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[600px] lg:h-[420px]" />
-      <div className="container relative grid gap-10 pb-24 pt-28 sm:pt-36 lg:grid-cols-[1fr_1.4fr]">
+      <div className="container relative grid grid-cols-1 gap-10 pb-24 pt-28 sm:pt-36 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
         <Reveal className="text-white lg:pt-4">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">Book a pilot</p>
           <h1 className="mt-4 text-balance font-display text-4xl font-extrabold leading-[1.05] sm:text-5xl">

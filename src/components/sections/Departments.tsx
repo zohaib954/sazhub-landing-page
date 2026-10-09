@@ -45,8 +45,8 @@ export function Departments() {
 
   return (
     <section className="relative overflow-hidden bg-white py-24 sm:py-32" aria-labelledby="dept-title">
-      <div className="container grid items-center gap-12 lg:grid-cols-[1fr_1.3fr]">
-        <Reveal>
+      <div className="container grid grid-cols-1 items-center gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] xl:gap-12">
+        <Reveal className="max-w-2xl">
           <p className="eyebrow">Hospitals and departments</p>
           <h2 id="dept-title" className="h-section mt-3">
             Set up once — every app uses the same list
@@ -67,9 +67,9 @@ export function Departments() {
               <Plus className="h-3.5 w-3.5" /> Add
             </span>
           </div>
-          <p className="mt-2 text-xs text-ink-500">Sunrise Hospital, Andheri · Mumbai</p>
+          <p className="mt-2 text-xs text-ink-500">Northwind General · Mumbai</p>
 
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
+          <div className="mt-5 grid grid-cols-2 gap-2.5 min-[480px]:grid-cols-3 md:grid-cols-5 sm:gap-3">
             {shown.map((app, ai) => {
               const Icon = app.icon;
               return (

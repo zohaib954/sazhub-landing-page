@@ -99,7 +99,7 @@ export function ConsoleMockup() {
             ))}
           </div>
 
-          <div className="mt-2.5 grid gap-2 lg:grid-cols-[1.6fr_1fr]">
+          <div className="mt-2.5 grid grid-cols-1 gap-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
             <div className="overflow-hidden rounded-lg border border-amber-200 bg-white">
               <p className="flex items-center gap-1.5 bg-amber-50 px-2.5 py-1.5 text-[9px] font-semibold text-amber-800">
                 <ShieldOff className="h-3 w-3" /> Admins without two-step verification

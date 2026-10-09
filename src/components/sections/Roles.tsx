@@ -8,9 +8,9 @@ import { Reveal } from "@/components/ui/Motion";
 import { cn } from "@/lib/utils";
 
 const orgs = [
-  { name: "Sunrise Healthcare", sites: ["Sunrise Hospital, Andheri", "Sunrise Multispeciality, Pune"] },
-  { name: "Lotus Care", sites: ["Lotus Care Hospital, Bengaluru", "Lotus Care Clinic, Mysuru"] },
-  { name: "Care Banjara", sites: ["Care Banjara, Hyderabad"] },
+  { name: "Northwind Health", sites: ["Northwind General, Mumbai", "Northwind Speciality, Pune"] },
+  { name: "Greenfield Medical", sites: ["Greenfield Hospital, Bengaluru", "Greenfield Clinic, Mysuru"] },
+  { name: "Meridian Hospitals", sites: ["Meridian Hospital, Hyderabad"] },
 ];
 
 type Role = {
@@ -84,8 +84,8 @@ export function Roles() {
           </h2>
         </Reveal>
 
-        <div ref={ref} className="mt-12 grid gap-6 lg:grid-cols-[340px_1fr]">
-          <div className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0" role="tablist" aria-label="Roles">
+        <div ref={ref} className="mt-12 grid grid-cols-1 gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
+          <div className="flex flex-wrap gap-2 xl:flex-col xl:flex-nowrap" role="tablist" aria-label="Roles">
             {roles.map((r, i) => (
               <button
                 key={r.id}
@@ -96,14 +96,14 @@ export function Roles() {
                   setAuto(false);
                 }}
                 className={cn(
-                  "relative shrink-0 overflow-hidden rounded-2xl border p-4 text-left transition duration-300 lg:shrink",
+                  "relative overflow-hidden rounded-2xl border p-2 text-left transition duration-300 sm:p-3 xl:p-4",
                   active === i ? "border-ink-200 bg-white shadow-card" : "border-transparent hover:bg-white/60",
                 )}
               >
                 <span className={cn("inline-block rounded-full px-3 py-1 text-sm font-semibold transition", active === i ? "bg-ink-800 text-white" : "bg-ink-100 text-ink-700")}>
                   {r.name}
                 </span>
-                <span className="mt-2 hidden text-sm text-ink-600 lg:block">{r.body}</span>
+                <span className="mt-2 hidden text-sm text-ink-600 xl:block">{r.body}</span>
                 {active === i && auto && !reduce && (
                   <motion.span
                     key={`bar-${active}`}
@@ -124,18 +124,18 @@ export function Roles() {
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
-                className="text-sm text-ink-600 lg:hidden"
+                className="text-sm text-ink-600 xl:hidden"
               >
                 {role.body}
               </motion.p>
             </AnimatePresence>
 
-            <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-ink-400 lg:mt-0">Scope</p>
+            <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-ink-400 xl:mt-0">Scope</p>
             <div className={cn("mt-3 rounded-2xl border-2 border-dashed p-3 transition-colors duration-500", role.scope === "all" ? "border-app-licensify/50 bg-blue-50/40" : "border-ink-100")}>
               <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
                 <span className="h-2 w-2 rounded-full bg-app-licensify" /> SAZ Vida platform
               </p>
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {orgs.map((org, oi) => {
                   const orgOn = inScope(role, oi) || role.scope === "all";
                   const anyOn = org.sites.some((_, si) => inScope(role, oi, si));

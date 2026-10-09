@@ -6,7 +6,7 @@ export type Qa = { q: string; a: string };
 export function Faq({ items, title = "Questions, answered" }: { items: Qa[]; title?: string }) {
   return (
     <section className="bg-white py-20 sm:py-28" aria-labelledby="faq-title">
-      <div className="container grid gap-10 lg:grid-cols-[1fr_1.6fr]">
+      <div className="container grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
         <Reveal>
           <p className="eyebrow">FAQ</p>
           <h2 id="faq-title" className="h-section mt-3">

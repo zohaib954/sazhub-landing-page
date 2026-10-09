@@ -81,7 +81,7 @@ export function DemoForm() {
             </button>
           </motion.div>
         ) : (
-          <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2" noValidate={false}>
+          <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2" noValidate={false}>
             <label className="text-sm font-medium text-ink-800">
               Full name
               <input name="name" required autoComplete="name" className={field} placeholder="Dr. Priya Sharma" />
@@ -92,7 +92,7 @@ export function DemoForm() {
             </label>
             <label className="text-sm font-medium text-ink-800">
               Hospital group / organization
-              <input name="organization" required autoComplete="organization" className={field} placeholder="Sunrise Healthcare" />
+              <input name="organization" required autoComplete="organization" className={field} placeholder="Northwind Health" />
             </label>
             <label className="text-sm font-medium text-ink-800">
               Your role

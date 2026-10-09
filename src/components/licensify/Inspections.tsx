@@ -32,7 +32,7 @@ export function ComplianceByDept() {
       </p>
       <div className="mt-1.5 overflow-hidden rounded-lg border border-ink-100">
         {departmentsCompliance.map((d, i) => (
-          <div key={d.dept + d.site} className="grid grid-cols-[1.4fr_auto_1fr] items-center gap-2 border-b border-ink-50 px-2.5 py-2 text-[9px] last:border-0 sm:grid-cols-[1.4fr_auto_auto_1fr]">
+          <div key={d.dept + d.site} className="grid grid-cols-[minmax(0,1.4fr)_auto_minmax(0,1fr)] items-center gap-2 border-b border-ink-50 px-2.5 py-2 text-[9px] last:border-0 sm:grid-cols-[minmax(0,1.4fr)_auto_auto_minmax(0,1fr)]">
             <span className="min-w-0">
               <span className="block truncate font-semibold">{d.dept}</span>
               <span className="block truncate text-[7.5px] text-ink-400">{d.site}</span>

@@ -24,7 +24,7 @@ export function FeatureRow({
 }) {
   return (
     <section id={id} className={cn("relative scroll-mt-16 overflow-hidden py-20 sm:py-28", tinted ? "bg-[#f6f7fb]" : "bg-white")}>
-      <div className={cn("container grid items-center gap-12 lg:gap-16", reverse ? "lg:grid-cols-[1.35fr_1fr]" : "lg:grid-cols-[1fr_1.35fr]")}>
+      <div className={cn("container grid grid-cols-1 items-center gap-12 lg:gap-16", reverse ? "lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]")}>
         <div className={cn(reverse && "lg:order-2")}>
           <Reveal>
             <p className="eyebrow">{eyebrow}</p>
@@ -40,7 +40,7 @@ export function FeatureRow({
             ))}
           </Stagger>
         </div>
-        <Reveal y={40} delay={0.1} className={cn("relative", reverse && "lg:order-1")}>
+        <Reveal y={40} delay={0.1} className={cn("relative min-w-0", reverse && "lg:order-1")}>
           <div className="absolute -inset-6 -z-10 rounded-[32px] bg-gradient-to-br from-blue-100/70 via-transparent to-violet-100/60 blur-xl" />
           {visual}
         </Reveal>
