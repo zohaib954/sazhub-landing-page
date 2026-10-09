@@ -42,13 +42,13 @@ const wideLayout: Layout = {
   gridTop: 150,
   tileH: 62,
   scatter: [
-    [-70, 40, -8],
-    [830, 10, 7],
-    [-110, 250, 5],
-    [880, 220, -6],
-    [-10, 380, -4],
-    [800, 370, 5],
-    [400, 410, -3],
+    [-40, 40, -8],
+    [800, 10, 7],
+    [-60, 230, 5],
+    [830, 210, -6],
+    [10, 380, -4],
+    [770, 370, 5],
+    [400, 400, -3],
   ],
 };
 
@@ -62,13 +62,13 @@ const narrowLayout: Layout = {
   gridTop: 140,
   tileH: 64,
   scatter: [
-    [-30, 10, -8],
-    [215, 30, 7],
-    [-50, 180, 5],
-    [235, 160, -6],
-    [-30, 330, -4],
-    [225, 320, 5],
-    [100, 410, -3],
+    [-10, 10, -8],
+    [205, 30, 7],
+    [-15, 180, 5],
+    [215, 160, -6],
+    [-10, 330, -4],
+    [205, 320, 5],
+    [100, 400, -3],
   ],
 };
 
@@ -218,79 +218,81 @@ function Slots({ layout, progress }: { layout: Layout; progress: MotionValue<num
 /* ---------- Section ---------- */
 
 export function Hero() {
-  const section = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
+  // Assembly starts as the stage scrolls into view and finishes while it is pinned.
+  const { scrollYProgress } = useScroll({ target: stage, offset: ["start 0.45", "end end"] });
   const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.4 });
   const done = useMotionValue(1);
   const progress = reduce ? done : smooth;
 
+  // Fit sizes include room for the scattered tiles either side of the window.
   const { ref, scale, mobile, ready } = useStageScale(
-    { w: wideLayout.W, h: wideLayout.H },
-    { w: narrowLayout.W, h: narrowLayout.H },
-    { fitHeight: true, reserveY: 56 },
+    { w: 1100, h: wideLayout.H },
+    { w: 380, h: narrowLayout.H },
+    { fitHeight: true, reserveY: 48, maxScale: 1.6 },
   );
   const layout = mobile ? narrowLayout : wideLayout;
 
-  const headY = useTransform(progress, [0, 0.6], [0, -30]);
   const caption1 = useTransform(progress, [0, 0.25, 0.35], [1, 1, 0]);
   const caption2 = useTransform(progress, [0.55, 0.7], [0, 1]);
 
   return (
-    <section ref={section} className="relative h-[230vh] bg-hero text-white" aria-labelledby="hero-title">
-      <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
-        <div className="bg-grid pointer-events-none absolute inset-0" />
-        <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[900px] -translate-x-1/2 rounded-full bg-sky-400/20 blur-[120px]" />
+    <section className="relative bg-hero text-white" aria-labelledby="hero-title">
+      <div className="bg-grid pointer-events-none absolute inset-0" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[min(900px,100vw)] -translate-x-1/2 rounded-full bg-sky-400/20 blur-[120px]" />
 
-        <motion.div style={{ y: headY }} className="container relative z-30 pt-24 text-center sm:pt-28">
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease }}
-            className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-sky-300 backdrop-blur"
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sky-300" />
-            SAZ Vida Healthcare Services
-          </motion.p>
-          <motion.h1
-            id="hero-title"
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.08, ease }}
-            className="mx-auto mt-5 max-w-4xl text-balance text-[2.35rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl"
-          >
-            One platform for <span className="text-gradient animate-shimmer">every hospital</span> operation
-          </motion.h1>
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.16, ease }}
-            className="mx-auto mt-5 max-w-2xl text-pretty text-base text-ink-200 sm:text-lg"
-          >
-            HR, audits, quality, compliance, feedback and licensing — one sign-in, one staff list, one source of truth.
-          </motion.p>
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.24, ease }}
-            className="mt-7 flex flex-wrap items-center justify-center gap-3"
-          >
-            <Link href="/demo/" className="btn-primary">
-              Book a pilot <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="#apps" className="btn-ghost">
-              Explore the apps
-            </Link>
-          </motion.div>
+      <div className="container relative z-30 pb-4 pt-28 text-center sm:pt-36">
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease }}
+          className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300 backdrop-blur sm:text-[11px]"
+        >
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sky-300" />
+          SAZ Vida Healthcare Services
+        </motion.p>
+        <motion.h1
+          id="hero-title"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.08, ease }}
+          className="mx-auto mt-5 max-w-4xl text-balance text-[2.1rem] font-extrabold leading-[1.04] min-[400px]:text-[2.5rem] sm:text-6xl lg:text-7xl"
+        >
+          One platform for <span className="text-gradient animate-shimmer">every hospital</span> operation
+        </motion.h1>
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.16, ease }}
+          className="mx-auto mt-5 max-w-2xl text-pretty text-base text-ink-200 sm:text-lg"
+        >
+          HR, audits, quality, compliance, feedback and licensing — one sign-in, one staff list, one source of truth.
+        </motion.p>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.24, ease }}
+          className="mt-7 flex flex-col items-stretch justify-center gap-3 min-[400px]:flex-row min-[400px]:items-center"
+        >
+          <Link href="/demo/" className="btn-primary">
+            Book a pilot <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link href="#apps" className="btn-ghost">
+            Explore the apps
+          </Link>
         </motion.div>
+      </div>
 
-        <div className="relative z-20 flex min-h-0 flex-1 justify-center pb-4 pt-6 sm:pt-10">
-          <div ref={ref} className="relative flex h-full w-full max-w-[1000px] flex-col items-center px-4">
+      {/* Pinned stage: the apps assemble into the launcher while this is on screen */}
+      <div ref={stage} className="relative h-[200vh]">
+        <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pb-4 pt-[4.5rem]">
+          <div ref={ref} className="relative z-20 mx-auto flex min-h-0 w-full max-w-[1760px] flex-1 flex-col items-center justify-center px-3 sm:px-6">
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 40 }}
               animate={{ opacity: ready ? 1 : 0, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3, ease }}
-              className="relative mx-auto"
+              className="relative mx-auto shrink-0"
               style={{ width: layout.W * scale, height: layout.H * scale }}
             >
               <div
@@ -305,9 +307,10 @@ export function Hero() {
               </div>
             </motion.div>
 
-            <div className="relative mt-5 h-6 w-full text-center text-sm font-medium" aria-hidden="true">
+            <div className="relative mt-5 h-6 w-full shrink-0 text-center text-sm font-medium sm:text-base" aria-hidden="true">
               <motion.p style={{ opacity: caption1 }} className="absolute inset-x-0 text-ink-200">
-                Seven tools, seven logins<span className="hidden sm:inline"> — scroll to bring them together</span> <span className="inline-block animate-bounce">↓</span>
+                Seven tools, seven logins<span className="hidden sm:inline"> — scroll to bring them together</span>{" "}
+                <span className="inline-block animate-bounce">↓</span>
               </motion.p>
               <motion.p style={{ opacity: caption2 }} className="absolute inset-x-0 text-sky-300">
                 One sign-in opens every app.

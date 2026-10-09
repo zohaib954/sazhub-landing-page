@@ -11,7 +11,7 @@ const features = [
 const log = [
   ["19:04", "Platform Admin", "Opened app", "Licensify", "Chrome on Windows", "ok"],
   ["19:03", "Platform Admin", "Signed in", "Platform", "Chrome on Windows", "ok"],
-  ["18:57", "Priya Kulkarni", "Added department", "Radiology · Sunrise, Andheri", "Safari on iPhone", "ok"],
+  ["18:57", "Priya Kulkarni", "Added department", "Radiology · Northwind General, Mumbai", "Safari on iPhone", "ok"],
   ["18:41", "Unknown", "Failed sign-in", "2 attempts", "Firefox on Linux", "fail"],
   ["18:38", "Platform Admin", "Rotated app secret", "Feedback", "Chrome on Windows", "key"],
   ["18:20", "Chetan Gowda", "Changed access", "HR → Branch admin", "Edge on Windows", "ok"],
@@ -22,7 +22,7 @@ const log = [
 function LogRow({ row }: { row: (typeof log)[number] }) {
   const [time, who, what, detail, from, kind] = row;
   return (
-    <div className="grid grid-cols-[52px_1fr_auto] items-center gap-3 border-b border-white/5 px-4 py-2.5 text-[12px] sm:grid-cols-[60px_130px_1fr_150px]">
+    <div className="grid grid-cols-[52px_minmax(0,1fr)_auto] items-center gap-3 border-b border-white/5 px-4 py-2.5 text-[12px] sm:grid-cols-[60px_130px_minmax(0,1fr)_150px]">
       <span className="font-mono text-ink-300">{time}</span>
       <span className="hidden truncate font-medium text-white sm:block">{who}</span>
       <span className="min-w-0">
@@ -37,7 +37,7 @@ function LogRow({ row }: { row: (typeof log)[number] }) {
 export function Security() {
   return (
     <section id="security" className="relative scroll-mt-16 overflow-hidden bg-white py-24 sm:py-32" aria-labelledby="security-title">
-      <div className="container grid items-center gap-14 lg:grid-cols-[1.2fr_1fr]">
+      <div className="container grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
         <Reveal y={40} className="order-2 lg:order-1">
           <div className="relative overflow-hidden rounded-2xl bg-ink-950 shadow-float ring-1 ring-ink-900">
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
@@ -46,7 +46,7 @@ export function Security() {
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" /> Live
               </span>
             </div>
-            <div className="hidden grid-cols-[60px_130px_1fr_150px] gap-3 px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-ink-400 sm:grid">
+            <div className="hidden grid-cols-[60px_130px_minmax(0,1fr)_150px] gap-3 px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-ink-400 sm:grid">
               <span>When</span>
               <span>Who</span>
               <span>What</span>
@@ -69,7 +69,7 @@ export function Security() {
               Every change and sign-in is on the record
             </h2>
           </Reveal>
-          <Stagger className="mt-8 grid gap-5 sm:grid-cols-2">
+          <Stagger className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {features.map(({ icon: Icon, title, body }) => (
               <StaggerItem key={title}>
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-ink-50 text-app-licensify">

@@ -8,8 +8,8 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink-950 text-ink-200">
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-50" />
-      <div className="container relative grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-        <div className="max-w-xs">
+      <div className="container relative grid grid-cols-2 gap-x-6 gap-y-10 py-14 sm:py-16 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
+        <div className="col-span-2 max-w-xs md:col-span-1">
           <Logo tone="light" />
           <p className="mt-4 text-sm leading-relaxed text-ink-300">
             One platform for every hospital operation. One login, one staff list, one audit trail.

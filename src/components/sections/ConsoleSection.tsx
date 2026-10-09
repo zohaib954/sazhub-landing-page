@@ -12,7 +12,7 @@ export function ConsoleSection() {
   return (
     <section id="console" className="relative scroll-mt-16 overflow-hidden bg-white py-24 sm:py-32" aria-labelledby="console-title">
       <div className="pointer-events-none absolute -right-40 top-20 h-[420px] w-[420px] rounded-full bg-sky-300/20 blur-[100px]" />
-      <div className="container relative grid items-center gap-14 lg:grid-cols-[1fr_1.35fr]">
+      <div className="container relative grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
         <div>
           <Reveal>
             <p className="eyebrow">The Console</p>

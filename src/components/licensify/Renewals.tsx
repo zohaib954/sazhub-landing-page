@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const renewalRows = [
-  { days: 4, name: "Narcotic Drugs License (NDPS)", dept: "Pharmacy", site: "Sunrise Multispeciality, Pune", owner: "Arjun Menon" },
-  { days: 9, name: "Fire NOC", dept: "Facility & Fire Safety", site: "Lotus Care Hospital, Bengaluru", owner: "Raghav Iyengar" },
-  { days: 21, name: "Pollution Consent (CTO)", dept: "Biomedical Waste Mgmt", site: "Sunrise Hospital, Andheri", owner: "Kunal More" },
+  { days: 4, name: "Narcotic Drugs License (NDPS)", dept: "Pharmacy", site: "Northwind Speciality, Pune", owner: "Arjun Menon" },
+  { days: 9, name: "Fire NOC", dept: "Facility & Fire Safety", site: "Greenfield Hospital, Bengaluru", owner: "Raghav Iyengar" },
+  { days: 21, name: "Pollution Consent (CTO)", dept: "Biomedical Waste Mgmt", site: "Northwind General, Mumbai", owner: "Kunal More" },
 ];
 
 const stages = ["Not started", "In progress", "Renewed"] as const;
@@ -43,7 +43,7 @@ export function RenewalsMockup() {
             </span>
           </div>
 
-          <div className="mt-3 grid gap-2 md:grid-cols-[1fr_1.5fr]">
+          <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
             <div className="grid grid-cols-2 gap-1.5">
               {bands.map((b, i) => (
                 <button
@@ -109,7 +109,7 @@ export function RenewalsMockup() {
           </div>
 
           <div className="mt-2 overflow-hidden rounded-lg border border-ink-100 bg-white">
-            <div className="grid grid-cols-[46px_1fr_auto] gap-2 border-b border-ink-100 px-2.5 py-1.5 text-[7.5px] font-semibold uppercase tracking-wide text-ink-400 sm:grid-cols-[46px_1.4fr_1fr_auto]">
+            <div className="grid grid-cols-[46px_minmax(0,1fr)_auto] gap-2 border-b border-ink-100 px-2.5 py-1.5 text-[7.5px] font-semibold uppercase tracking-wide text-ink-400 sm:grid-cols-[46px_minmax(0,1.4fr)_minmax(0,1fr)_auto]">
               <span>Days left</span>
               <span>License</span>
               <span className="hidden sm:block">Owner</span>
@@ -118,7 +118,7 @@ export function RenewalsMockup() {
             {renewalRows.map((r, i) => {
               const s = stage[i];
               return (
-                <div key={r.name} className="grid grid-cols-[46px_1fr_auto] items-center gap-2 border-b border-ink-50 px-2.5 py-2 text-[9px] last:border-0 sm:grid-cols-[46px_1.4fr_1fr_auto]">
+                <div key={r.name} className="grid grid-cols-[46px_minmax(0,1fr)_auto] items-center gap-2 border-b border-ink-50 px-2.5 py-2 text-[9px] last:border-0 sm:grid-cols-[46px_minmax(0,1.4fr)_minmax(0,1fr)_auto]">
                   <span
                     className={cn(
                       "w-fit rounded px-1.5 py-0.5 text-[8.5px] font-bold",

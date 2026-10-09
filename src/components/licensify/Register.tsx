@@ -86,7 +86,7 @@ export function RegisterMockup() {
           </div>
 
           <div className="mt-2 overflow-hidden rounded-lg border border-ink-100 bg-white">
-            <div className="grid grid-cols-[1.6fr_1fr_auto] gap-2 border-b border-ink-100 px-2.5 py-1.5 text-[7.5px] font-semibold uppercase tracking-wide text-ink-400 sm:grid-cols-[1.6fr_1fr_1fr_0.8fr_auto_14px]">
+            <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_auto] gap-2 border-b border-ink-100 px-2.5 py-1.5 text-[7.5px] font-semibold uppercase tracking-wide text-ink-400 sm:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.8fr)_auto_14px]">
               <span>License</span>
               <span className="hidden sm:block">Department</span>
               <span>Owner</span>
@@ -104,7 +104,7 @@ export function RegisterMockup() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.25 }}
-                    className="grid grid-cols-[1.6fr_1fr_auto] items-center gap-2 border-b border-ink-50 px-2.5 py-1.5 text-[9px] last:border-0 sm:grid-cols-[1.6fr_1fr_1fr_0.8fr_auto_14px]"
+                    className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_auto] items-center gap-2 border-b border-ink-50 px-2.5 py-1.5 text-[9px] last:border-0 sm:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.8fr)_auto_14px]"
                   >
                     <span className="min-w-0">
                       <span className="block truncate font-semibold">{l.name}</span>

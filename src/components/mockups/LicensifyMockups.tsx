@@ -200,7 +200,7 @@ export function LicensifyDashboard() {
             })}
           </div>
 
-          <div className="mt-2.5 grid gap-2 sm:grid-cols-[1fr_1.7fr]">
+          <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)]">
             <div className="rounded-lg border border-ink-100 bg-white p-2.5">
               <p className="text-[9.5px] font-semibold">License status</p>
               <p className="text-[7.5px] text-ink-400">Click a slice to see these licenses</p>

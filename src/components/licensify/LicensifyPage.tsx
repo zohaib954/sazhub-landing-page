@@ -60,7 +60,7 @@ export function LicensifyPage() {
             <ChevronRight className="h-3 w-3" />
             <span className="text-white">Licensify</span>
           </nav>
-          <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.25fr]">
+          <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
             <Reveal>
               <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-app-licensify text-white shadow-lg ring-1 ring-white/25">
@@ -161,7 +161,7 @@ export function LicensifyPage() {
             <p className="eyebrow">Licensify · Inspections</p>
             <h2 className="h-section mt-3">Inspections tracked to the last finding</h2>
           </Reveal>
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Reveal y={40}>
               <ComplianceByDept />
               <h3 className="mt-6 font-display text-xl font-bold">Compliance by department</h3>

@@ -36,7 +36,7 @@ export function Problem() {
           </h2>
         </Reveal>
 
-        <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {problems.map(({ icon: Icon, title, body }, i) => (
             <StaggerItem key={title} className="card group relative overflow-hidden p-6 transition duration-300 hover:-translate-y-1 hover:shadow-float">
               <span className="absolute right-5 top-5 font-display text-5xl font-extrabold text-ink-50 transition group-hover:text-red-50">

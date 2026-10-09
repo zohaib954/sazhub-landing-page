@@ -25,7 +25,7 @@ export function FinalCta({ title = "One login. One staff list. One audit trail."
           </p>
         </Reveal>
 
-        <Stagger className="mt-12 grid gap-4 md:grid-cols-3">
+        <Stagger className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
           {steps.map((s) => (
             <StaggerItem key={s.n} className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition hover:border-white/25 hover:bg-white/10">
               <span className="font-display text-sm font-bold text-sky-300">{s.n}</span>
