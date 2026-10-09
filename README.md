@@ -1,69 +1,69 @@
-# Welcome to your Lovable project
+# SAZ Vida — marketing site
 
-## Project info
+The landing site for **SAZ Vida**, one platform for every hospital operation: HR, Audit, Quality, Compliance,
+Feedback, Licensify and the Console — one sign-in, one staff list, one audit trail.
 
-**URL**: https://lovable.dev/projects/ead3c482-8ab0-4a56-82f0-77165865d7a7
+Built with **Next.js (App Router) + TypeScript + Tailwind CSS + Framer Motion**, exported as a **fully static site**
+so it can be hosted anywhere (Netlify, Vercel, Cloudflare Pages, S3, nginx…).
 
-## How can I edit this code?
+## Getting started
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/ead3c482-8ab0-4a56-82f0-77165865d7a7) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static export to ./out
+npm start          # preview ./out locally
+npm run lint       # type-check
 ```
 
-**Edit a file directly in GitHub**
+Node 20+ is required (22 recommended).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Configuration
 
-**Use GitHub Codespaces**
+Copy `.env.example` to `.env.local` (or set these in your host's dashboard):
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Public URL, used for canonical links, sitemap and Open Graph tags. Defaults to `https://sazvida.com`. |
+| `NEXT_PUBLIC_FORM_ENDPOINT` | Where the **Book a pilot** form POSTs JSON (e.g. a [Formspree](https://formspree.io) form URL). Empty = form shows a "not connected" notice. |
+| `NEXT_PUBLIC_FORM_ACCESS_KEY` | Optional access key for services that need it in the body (e.g. Web3Forms). |
 
-## What technologies are used for this project?
+Contact details (email, phone, address) live in `src/lib/site.ts` and are hidden while empty.
 
-This project is built with .
+## Deploying
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Netlify** — connect the repo; `netlify.toml` already sets `npm run build` → `out`.
+- **Vercel** — import the repo; Next.js is detected automatically.
+- **Anywhere else** — run `npm run build` and upload the `out/` folder. Serve `404.html` for missing pages,
+  and serve `opengraph-image` files as `image/png` (Netlify/Vercel configs already do this).
 
-## How can I deploy this project?
+## Project structure
 
-Simply open [Lovable](https://lovable.dev/projects/ead3c482-8ab0-4a56-82f0-77165865d7a7) and click on Share -> Publish.
+```
+src/
+  app/                    Routes: /, /apps/[slug], /demo, sitemap, robots, OG images
+  components/
+    sections/             Home page sections (Hero, Connect, AppsGrid, Console, Roles, …)
+    licensify/            Licensify page and its interactive mockups
+    mockups/              Reusable HTML "product UI" mockups
+    ui/                   Motion primitives (Reveal, Stagger, CountUp) and stage scaling
+  lib/
+    apps.ts               App catalogue — names, colours, icons, which apps have pages
+    licensify.ts          Demo data for the Licensify mockups
+    site.ts               Site name, URL, contact details, form endpoint
+```
 
-## I want to use a custom domain - is that possible?
+### Adding another app page
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+1. Build its page component (see `src/components/licensify/LicensifyPage.tsx` as the template).
+2. Register it in the `meta` map in `src/app/apps/[slug]/page.tsx`.
+3. Set `hasPage: true` for the app in `src/lib/apps.ts` — the nav, footer, apps grid, sitemap and OG image pick it up automatically.
+
+## Design notes
+
+- **Fonts:** Plus Jakarta Sans (headings) and Inter (body), self-hosted via Fontsource — no external font requests.
+- **Colours:** brand navy from the logo (`ink-*`), plus one accent per app (`app-*`) used consistently across the site.
+- **Motion:** scroll-driven hero ("seven logins → one launcher") and platform section ("islands → connected hub");
+  everything respects `prefers-reduced-motion`.
+- **SEO:** per-page metadata and canonical URLs, Open Graph images, `sitemap.xml`, `robots.txt`, and JSON-LD
+  (`Organization`, `SoftwareApplication`, `BreadcrumbList`, `FAQPage`).

@@ -1,120 +1,56 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
-	darkMode: ["class"],
-	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
-	],
-	prefix: "",
-	theme: {
-		container: {
-			center: true,
-			padding: '2rem',
-			screens: {
-				'2xl': '1400px'
-			}
-		},
-		extend: {
-			fontFamily: {
-				sans: ['SF Pro Display', 'system-ui', 'sans-serif'],
-				serif: ['Georgia', 'serif'],
-			},
-			colors: {
-				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
-				sazvida: {
-					50: '#F1F8FF',
-					100: '#E0F0FE',
-					200: '#B9DEFF',
-					300: '#88C6FF',
-					400: '#5AADFF',
-					500: '#2C93FF',
-					600: '#0A78FF',
-					700: '#0063E6',
-					800: '#004DB3',
-					900: '#003380',
-				},
-				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
-				},
-				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
-				},
-				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
-				},
-				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
-				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
-				},
-				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
-				},
-				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
-				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
-			},
-			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
-			},
-			keyframes: {
-				'accordion-down': {
-					from: { height: '0' },
-					to: { height: 'var(--radix-accordion-content-height)' }
-				},
-				'accordion-up': {
-					from: { height: 'var(--radix-accordion-content-height)' },
-					to: { height: '0' }
-				},
-				'fade-in': {
-					'0%': { opacity: '0' },
-					'100%': { opacity: '1' }
-				},
-				'fade-up': {
-					'0%': { opacity: '0', transform: 'translateY(20px)' },
-					'100%': { opacity: '1', transform: 'translateY(0)' }
-				},
-				'scale-in': {
-					'0%': { opacity: '0', transform: 'scale(0.95)' },
-					'100%': { opacity: '1', transform: 'scale(1)' }
-				}
-			},
-			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.5s ease-out',
-				'fade-up': 'fade-up 0.7s ease-out',
-				'scale-in': 'scale-in 0.5s ease-out'
-			}
-		}
-	},
-	plugins: [require("tailwindcss-animate")],
+  content: ["./src/**/*.{ts,tsx}"],
+  theme: {
+    container: { center: true, padding: { DEFAULT: "1.25rem", md: "2rem" }, screens: { "2xl": "1240px" } },
+    extend: {
+      fontFamily: {
+        display: ['"Plus Jakarta Sans Variable"', "system-ui", "sans-serif"],
+        sans: ['"Inter Variable"', "system-ui", "sans-serif"],
+      },
+      colors: {
+        // Brand navy, sampled from the SAZ Vida logo and deck
+        ink: {
+          50: "#f3f5fb",
+          100: "#e6eaf6",
+          200: "#c9d1ec",
+          300: "#a0aedc",
+          400: "#7083c4",
+          500: "#4b5eab",
+          600: "#3a4a92",
+          700: "#2e3a78",
+          800: "#232c5e",
+          900: "#1b2149",
+          950: "#10142e",
+        },
+        sky: { 300: "#9fd3fb", 400: "#6cbcf5" },
+        app: {
+          hr: "#7c4ddb",
+          audit: "#3c8d5b",
+          quality: "#cc7a2b",
+          compliance: "#c43c34",
+          feedback: "#3b8ba3",
+          licensify: "#2f6dbd",
+          console: "#1f2433",
+        },
+        band: { critical: "#d0443c", warning: "#e07b2c", upcoming: "#e6b43a", later: "#5b8def" },
+      },
+      boxShadow: {
+        card: "0 1px 2px rgba(16,20,46,.04), 0 8px 24px -8px rgba(16,20,46,.10)",
+        float: "0 30px 80px -20px rgba(16,20,46,.45)",
+      },
+      keyframes: {
+        marquee: { from: { transform: "translateY(0)" }, to: { transform: "translateY(-50%)" } },
+        shimmer: { from: { backgroundPosition: "200% 0" }, to: { backgroundPosition: "-200% 0" } },
+        floaty: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-8px)" } },
+      },
+      animation: {
+        marquee: "marquee 22s linear infinite",
+        shimmer: "shimmer 6s linear infinite",
+        floaty: "floaty 6s ease-in-out infinite",
+      },
+    },
+  },
+  plugins: [],
 } satisfies Config;

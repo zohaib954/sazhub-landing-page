@@ -1,120 +1,177 @@
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import { Logo } from "@/components/Logo";
+import { apps } from "@/lib/apps";
+import { cn } from "@/lib/utils";
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+const links = [
+  { href: "/#platform", label: "Platform" },
+  { href: "/#console", label: "Console" },
+  { href: "/#security", label: "Security" },
+];
+
+export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [appsOpen, setAppsOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location]);
+    setOpen(false);
+    setAppsOpen(false);
+  }, [pathname]);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Solutions', path: '/#solutions' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-  ];
+  const solid = scrolled || open;
 
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-3',
-        isScrolled 
-          ? 'bg-white/80 backdrop-blur-md shadow-sm' 
-          : 'bg-transparent'
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        solid ? "border-b border-ink-100/80 bg-white/85 backdrop-blur-xl" : "bg-transparent",
       )}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link 
-          to="/" 
-          className={cn(
-            "font-bold text-xl md:text-2xl transition-all duration-300",
-            isScrolled ? "text-sazvida-700" : "text-gray-900"
-          )}
-        >
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-md bg-sazvida-500 flex items-center justify-center">
-              <span className="text-white text-sm font-bold">SZ</span>
-            </div>
-            <span>Sazvida Solutions</span>
-          </div>
+      <nav className="container flex h-16 items-center justify-between" aria-label="Main">
+        <Link href="/" aria-label="SAZ Vida home" className="shrink-0">
+          <Logo tone={solid ? "dark" : "light"} />
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
+        <div className="hidden items-center gap-1 md:flex">
+          <div className="relative" onMouseEnter={() => setAppsOpen(true)} onMouseLeave={() => setAppsOpen(false)}>
+            <button
+              type="button"
+              aria-expanded={appsOpen}
+              onClick={() => setAppsOpen((v) => !v)}
               className={cn(
-                'hover-lift text-md font-medium button-transition',
-                (location.pathname === link.path || 
-                 (location.pathname === '/' && link.path.startsWith('/#')))
-                  ? 'text-sazvida-600'
-                  : 'text-gray-700 hover:text-sazvida-600'
+                "inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium transition",
+                solid ? "text-ink-700 hover:bg-ink-50" : "text-white/80 hover:text-white",
               )}
             >
-              {link.name}
+              Apps <ChevronDown className={cn("h-4 w-4 transition", appsOpen && "rotate-180")} />
+            </button>
+            <AnimatePresence>
+              {appsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute left-1/2 top-full w-[440px] -translate-x-1/2 pt-2"
+                >
+                  <div className="grid grid-cols-2 gap-1 rounded-2xl border border-ink-100 bg-white p-2 shadow-float">
+                    {apps.map((app) => {
+                      const Icon = app.icon;
+                      const inner = (
+                        <>
+                          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-white" style={{ background: app.color }}>
+                            <Icon className="h-4 w-4" />
+                          </span>
+                          <span className="min-w-0">
+                            <span className="flex items-center gap-1.5 text-sm font-semibold text-ink-900">
+                              {app.name}
+                              {!app.hasPage && <span className="rounded bg-ink-50 px-1 text-[10px] font-medium text-ink-400">soon</span>}
+                            </span>
+                            <span className="block truncate text-xs text-ink-500">{app.short}</span>
+                          </span>
+                        </>
+                      );
+                      return app.hasPage ? (
+                        <Link key={app.slug} href={`/apps/${app.slug}/`} className="flex items-center gap-3 rounded-xl p-2.5 transition hover:bg-ink-50">
+                          {inner}
+                        </Link>
+                      ) : (
+                        <Link key={app.slug} href="/#apps" className="flex items-center gap-3 rounded-xl p-2.5 opacity-80 transition hover:bg-ink-50">
+                          {inner}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={cn(
+                "rounded-full px-3.5 py-2 text-sm font-medium transition",
+                solid ? "text-ink-700 hover:bg-ink-50" : "text-white/80 hover:text-white",
+              )}
+            >
+              {l.label}
             </Link>
           ))}
-          <Button className="bg-sazvida-600 hover:bg-sazvida-700 hover-lift">
-            Get Started
-          </Button>
-        </nav>
+        </div>
 
-        <div className="md:hidden">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+        <div className="flex items-center gap-2">
+          <Link href="/demo/" className={cn("hidden sm:inline-flex", solid ? "btn-ink" : "btn-primary")}>
+            Book a pilot <ArrowRight className="h-4 w-4" />
+          </Link>
+          <button
+            type="button"
+            className={cn("grid h-10 w-10 place-items-center rounded-full md:hidden", solid ? "text-ink-900" : "text-white")}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </Button>
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg p-5 border-t animate-fade-in">
-          <nav className="flex flex-col space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={cn(
-                  'py-2 px-4 rounded-md transition-colors',
-                  (location.pathname === link.path || 
-                   (location.pathname === '/' && link.path.startsWith('/#')))
-                    ? 'bg-sazvida-50 text-sazvida-600'
-                    : 'text-gray-700 hover:bg-sazvida-50 hover:text-sazvida-600'
-                )}
-              >
-                {link.name}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden border-t border-ink-100 bg-white md:hidden"
+          >
+            <div className="container grid gap-1 py-4">
+              <p className="px-2 pb-1 text-xs font-semibold uppercase tracking-widest text-ink-400">Apps</p>
+              <div className="grid grid-cols-2 gap-1">
+                {apps.map((app) => {
+                  const Icon = app.icon;
+                  return (
+                    <Link
+                      key={app.slug}
+                      href={app.hasPage ? `/apps/${app.slug}/` : "/#apps"}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-2 rounded-lg p-2 text-sm font-medium text-ink-800 hover:bg-ink-50"
+                    >
+                      <span className="grid h-7 w-7 place-items-center rounded-md text-white" style={{ background: app.color }}>
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      {app.name}
+                    </Link>
+                  );
+                })}
+              </div>
+              <div className="my-2 h-px bg-ink-100" />
+              {links.map((l) => (
+                <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="rounded-lg px-2 py-2 text-sm font-medium text-ink-800 hover:bg-ink-50">
+                  {l.label}
+                </Link>
+              ))}
+              <Link href="/demo/" onClick={() => setOpen(false)} className="btn-ink mt-2">
+                Book a pilot <ArrowRight className="h-4 w-4" />
               </Link>
-            ))}
-            <Button className="w-full bg-sazvida-600 hover:bg-sazvida-700 mt-2">
-              Get Started
-            </Button>
-          </nav>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
-};
-
-export default Navbar;
+}
