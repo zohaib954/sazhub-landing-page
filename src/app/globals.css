@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-[#f6f7fb] font-sans text-ink-900;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-[-0.025em];
+  }
+  ::selection {
+    @apply bg-sky-300/60 text-ink-950;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-sky-400 ring-offset-2 ring-offset-white;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.2em] text-app-licensify;
+  }
+  .h-section {
+    @apply text-balance font-display text-3xl font-extrabold leading-[1.08] text-ink-900 sm:text-4xl lg:text-5xl;
+  }
+  .lede {
+    @apply text-pretty text-base leading-relaxed text-ink-700/80 sm:text-lg;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-200 will-change-transform active:scale-[.98];
+  }
+  .btn-primary {
+    @apply btn bg-white text-ink-900 shadow-[0_8px_30px_-8px_rgba(159,211,251,.6)] hover:-translate-y-0.5 hover:bg-sky-300;
+  }
+  .btn-ink {
+    @apply btn bg-ink-800 text-white hover:-translate-y-0.5 hover:bg-ink-700;
+  }
+  .btn-ghost {
+    @apply btn border border-white/20 bg-white/5 text-white backdrop-blur hover:border-white/40 hover:bg-white/10;
+  }
+  .btn-outline {
+    @apply btn border border-ink-200 bg-white text-ink-800 hover:border-ink-300 hover:bg-ink-50;
+  }
+  .card {
+    @apply rounded-2xl border border-ink-100 bg-white shadow-card;
+  }
+  /* Faux UI chrome used by the HTML mockups */
+  .ui-window {
+    @apply overflow-hidden rounded-xl border border-ink-100 bg-white text-[11px] text-ink-800 shadow-float;
+  }
+  .bg-hero {
+    background:
+      radial-gradient(60% 50% at 75% 20%, rgba(91, 141, 239, 0.35), transparent 70%),
+      radial-gradient(40% 40% at 10% 90%, rgba(124, 77, 219, 0.25), transparent 70%),
+      linear-gradient(160deg, #161b44 0%, #1f2867 55%, #283a9c 100%);
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .bg-grid-light {
+    background-image:
+      linear-gradient(to right, rgba(27,33,73,.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(27,33,73,.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #9fd3fb, #c4b5fd, #9fd3fb);
+    background-size: 200% auto;
+  }
+}

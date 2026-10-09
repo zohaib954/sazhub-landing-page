@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Open Graph images are exported without a file extension; make sure they're served as PNG.
+[[headers]]
+  for = "/opengraph-image"
+  [headers.values]
+    Content-Type = "image/png"
+
+[[headers]]
+  for = "/apps/*/opengraph-image"
+  [headers.values]
+    Content-Type = "image/png"
